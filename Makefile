@@ -1,14 +1,12 @@
 setup:
 	# Create python virtualenv & source it
-	# source ~/.devops/bin/activate
+	# source ~/.capstone/bin/activate
 	python3 -m venv ~/.capstone
 
 install:
 	# This should be run from inside a virtualenv
 	pip3 install --no-cache-dir --upgrade pip &&\
 		pip3 install --no-cache-dir -r requirements.txt
-	wget -O ./hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-		chmod +x ./hadolint
 		
 test:
 	# Additional, optional, tests could go here
@@ -21,11 +19,24 @@ validate-circleci:
 	circleci config process .circleci/config.yml
 
 lint:
-	# See local hadolint install instructions:   https://github.com/hadolint/hadolint
-	# This is linter for Dockerfiles
-	./hadolint Dockerfile
-	# This is a linter for Python source code linter: https://www.pylint.org/
-	# This should be run from inside a virtualenv
-	pylint --disable=R,C,W1203,W1202, app.py
+	./hadolint flask_app/Dockerfile
+	pylint --disable=R,C,W1203,W1202, flask_app/app.py
+
+run-app:
+	python3 flask_app/app.py
 
 all: install lint test
+
+create-cluster:
+	./create_cluster.sh
+
+k8s-deployment: create-cluster
+	# If using minikube, first run: minikube start
+	./k8s_deployment.sh
+
+# k8s-cleanup-resources:
+# 	./bin/k8s_cleanup_resources.sh
+
+# eks-delete-cluster:
+# 	./bin/eksctl delete cluster --name "${CLUSTER_NAME}" \
+# 		--region "${REGION_NAME}"
