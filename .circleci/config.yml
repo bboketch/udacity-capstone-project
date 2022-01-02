@@ -19,7 +19,7 @@ jobs:
           name: install dependencies
           command: |
               python3 -m venv .capstone
-              source ~/.capstone/bin/activate
+              source . capstone/bin/activate
               make install
       - save_cache:
           paths:
