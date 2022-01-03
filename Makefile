@@ -27,14 +27,16 @@ lint:
 run-app:
 	python3 flask_app/app.py
 
+# create-cluster:
+# 	./create_cluster.sh
+
+# k8s-deployment: create-cluster
+# 	# If using minikube, first run: minikube start
+# 	./k8s_deployment.sh
+
 all: install lint test
 
-create-cluster:
-	./create_cluster.sh
 
-k8s-deployment: create-cluster
-	# If using minikube, first run: minikube start
-	./k8s_deployment.sh
 
 # k8s-cleanup-resources:
 # 	./bin/k8s_cleanup_resources.sh
