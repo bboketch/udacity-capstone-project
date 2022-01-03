@@ -7,6 +7,8 @@ install:
 	# This should be run from inside a virtualenv
 	pip3 install --no-cache-dir --upgrade pip &&\
 		pip3 install --no-cache-dir -r requirements.txt
+	wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+        chmod +x /bin/hadolint
 		
 test:
 	# Additional, optional, tests could go here
