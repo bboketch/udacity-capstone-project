@@ -5,12 +5,12 @@
 
 # Step 1:
 # Create dockerpath
-dockerpath=oketcbb/api
+dockerpath=oketcbb/capstone
 
 # Step 2:  
 # Authenticate & tag
 docker login --username=oketcbb --email=bethoketch@gmail.co.uk
-docker tag api $dockerpath
+docker tag capstone $dockerpath
 echo "Docker ID and Image: $dockerpath"
 
 # Step 3:
