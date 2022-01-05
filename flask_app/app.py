@@ -1,17 +1,17 @@
 from flask import Flask
 # from flask import request
-from flask import render_template
+# from flask import render_template
 
-app = Flask(__name__)
+app=Flask(__name__,template_folder='templates')
+
+# @app.route("/")
+# def home():
+#     return render_template("home.html")
+
 
 @app.route("/")
-def home():
-    return render_template("home.html")
-
-
-@app.route('/hello')
 def hello():
-    return 'Hello, World!'
+    return 'Hello World!'
 
-if __name__ == "__app__":
+if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
