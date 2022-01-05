@@ -24,10 +24,11 @@ lint:
 	./hadolint Dockerfile
 	pylint --disable=R,C,W1203,W1202, flask_app/app.py
 
-run-app:
-	python3 flask_app/app.py
 
 all: install lint test
+
+# run-app:
+# 	python3 flask_app/app.py
 
 # create-cluster:
 # 	./create_cluster.sh
