@@ -21,13 +21,13 @@ In this project I applied the skills I learnt in the past couple of months from 
 * Set up project in CircleCi
 * Create eks_deployment.yml
 
-### Running `app.py`
+## Running `app.py`
 
 1. Set up Hello world application
 2. Run in Docker:  `./run_docker.sh` and `./upload_docker.sh`
 3. Run in Kubernetes:  `./run_kubernetes.sh`
 
-### Deploy the application in Amazon EKS
+## Deploy the application in Amazon EKS
 1. eksctl create cluster --name capstone --region us-east-1 --fargate 
 2. aws eks --region us-east-1 update-kubeconfig --name capstone 
 3. kubectl config use-context arn:aws:eks:us-east-1:731488622603:cluster/capstone 
