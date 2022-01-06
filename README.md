@@ -2,7 +2,7 @@
 
 # udacity-capstone-project
 
-In this project I applied the skills I have learnt in the past couple of months from the Udacity Cloud Devops Engineer nanodegree. These include:
+In this project I applied the skills I learnt in the past couple of months from the Udacity Cloud Devops Engineer nanodegree. These include:
 
 * Working in AWS
 * Using Jenkins or Circle CI to implement Continuous Integration and Continuous Deployment
