@@ -13,7 +13,7 @@ In this project I applied the skills I learnt in the past couple of months from 
 
 
 ## Setup the Environment
-
+* Create Dockerfile, makefile, requirements.txt
 * create python virtualenv & source it:
 	source ~/.capstone/bin/activate
 	python3 -m venv ~/.capstone
