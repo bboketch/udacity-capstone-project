@@ -19,6 +19,7 @@ In this project I applied the skills I have learnt in the past couple of months 
 	python3 -m venv ~/.capstone
 * Then run make install
 * Set up project in CircleCi
+* Create eks_deployment.yml
 
 ### Running `app.py`
 
@@ -32,4 +33,5 @@ In this project I applied the skills I have learnt in the past couple of months 
 3. kubectl config use-context arn:aws:eks:us-east-1:731488622603:cluster/capstone 
 4. kubectl get nodes
 5. kubectl get pods --all-namespaces  
-6. kubectl get deployment
+6. kubectl apply -f eks_deployment.yml
+7. kubectl get deployment
