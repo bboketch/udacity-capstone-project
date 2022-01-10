@@ -67,7 +67,7 @@ jobs:
           name: Push Docker Image
           command: |
               dockerpath=oketcbb/capstone
-              docker login --username=oketcbb  --password=25October
+          # docker login --username=oketcbb  --password=
               docker tag capstone $dockerpath
               echo "Docker ID and Image: $dockerpath"
               docker push $dockerpath
