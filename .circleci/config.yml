@@ -1,7 +1,12 @@
 version: 2.1
 
+orbs:
+  docker: circleci/docker@4.3.1
+  kubernetes: circleci/kubernetes@0.4.0
+  aws-eks: circleci/aws-eks@1.21
+
 jobs:
-  build:
+  lint-app:
     docker:
       - image: python:3.7.3-stretch
     working_directory: ~/repo
@@ -34,3 +39,58 @@ jobs:
           command: |
               . venv/bin/activate
               make lint 
+
+    docker-build:
+      executor: docker
+      steps:
+        - checkout
+        - run:
+          name: Build docker image
+          command: |
+            docker build -t capstone .
+            docker image ls
+
+    upload-image:
+      executor: docker
+      steps:
+        - checkout
+        - run:
+          name: docker push
+          command: |
+            dockerpath=oketcbb/capstone
+            docker login --username=oketcbb --email=bethoketch@gmail.co.uk
+            docker tag capstone $dockerpath
+            echo "Docker ID and Image: $dockerpath"
+            docker push $dockerpath
+
+    # deploy-kubernetes:
+    #   executor: aws-eks/python3
+    #   steps:
+    #     - checkout
+    #     - run:
+    #       name: create cluster
+    #     - run:
+    #       name: deploy kubernetes cluster
+    #       command: |
+    #         aws eks --region us-east-1 update-kubeconfig --name capstone
+    #     # kubectl config use-context arn:aws:eks:us-east-1:731488622603:cluster/capstone
+    #         kubectl get nodes
+    #         kubectl get pods --all-namespaces
+    #         kubectl apply -f eks_deployment.yml
+    #         kubectl get deployment
+
+
+
+workflows:
+  deployment:
+    jobs:
+      - lint-app
+      - docker-build:
+          requires:
+            - "lint-app"
+      - upload-image:
+          requires:
+            - "docker-build"
+      # - deploy-kubernetes:
+      #     requires:
+      #       - "upload-image"
