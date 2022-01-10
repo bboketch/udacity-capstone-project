@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-              docker build -t capstone .
+              docker build -t oketcbb/capstone .
               docker image ls
 
   push-docker-image:
