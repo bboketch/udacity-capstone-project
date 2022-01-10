@@ -54,8 +54,8 @@ jobs:
       - run:
         name: Build Docker Image
         command: |
-          docker build -t capstone .
-          docker image ls
+            docker build -t capstone .
+            docker image ls
 
   push-docker-image:
     docker:
@@ -65,11 +65,11 @@ jobs:
       - run:
         name: Push Docker Image
         command: |
-          dockerpath=oketcbb/capstone
-          docker login --username=oketcbb --email=bethoketch@gmail.co.uk
-          docker tag capstone $dockerpath
-          echo "Docker ID and Image: $dockerpath"
-          docker push $dockerpath
+            dockerpath=oketcbb/capstone
+            docker login --username=oketcbb --email=bethoketch@gmail.co.uk
+            docker tag capstone $dockerpath
+            echo "Docker ID and Image: $dockerpath"
+            docker push $dockerpath
 
     # deploy-kubernetes:
     #   executor: aws-eks/python3
