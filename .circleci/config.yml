@@ -17,7 +17,7 @@ jobs:
   run-lint:
     docker:
       - image: circleci/python:3.7.3-stretch
-  # working_directory: ~/repo
+    working_directory: ~/repo
     steps:
       - checkout
   # Download and cache dependencies
