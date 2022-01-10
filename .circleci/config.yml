@@ -5,12 +5,19 @@ orbs:
   kubernetes: circleci/kubernetes@0.4.0
   aws-eks: circleci/aws-eks@1.21
 
-jobs:
-  lint-app:
+executors:
+  python:
     docker:
       - image: python:3.7.3-stretch
-    working_directory: ~/repo
+  
+  aws:
+    docker:
+    - image: amazon/aws-cli
 
+jobs:
+  lint-app:
+    executor: python
+    working_directory: ~/repo
     steps:
       - checkout
   # Download and cache dependencies
@@ -40,7 +47,7 @@ jobs:
               . venv/bin/activate
               make lint 
 
-    docker-build:
+    build:
       executor: docker
       steps:
         - checkout
@@ -85,12 +92,12 @@ workflows:
   deployment:
     jobs:
       - lint-app
-      - docker-build:
+      - build:
           requires:
             - "lint-app"
       - upload-image:
           requires:
-            - "docker-build"
+            - "build"
       # - deploy-kubernetes:
       #     requires:
       #       - "upload-image"
