@@ -93,11 +93,9 @@ workflows:
     jobs:
       - lint-app
       - build:
-          requires:
-            - "lint-app"
+          requires: [lint-app]
       - upload-image:
-          requires:
-            - "build"
+          requires: [build]
       # - deploy-kubernetes:
       #     requires:
       #       - "upload-image"
