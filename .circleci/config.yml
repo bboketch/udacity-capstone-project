@@ -5,19 +5,19 @@ orbs:
   kubernetes: circleci/kubernetes@0.4.0
   aws-eks: circleci/aws-eks@1.21
 
-executors:
-  python:
-    docker:
-      - image: python:3.7.3-stretch
-  
-  aws:
-    docker:
-    - image: amazon/aws-cli
+# executors:
+#   python:
+#     docker:
+#       - image: circleci/python:3.7.3-stretch
+#   aws:
+#     docker:
+#     - image: amazon/aws-cli
 
 jobs:
-  lint-app:
-    executor: python
-    working_directory: ~/repo
+  run-lint:
+    docker:
+      - image: circleci/python:3.7.3-stretch
+  # working_directory: ~/repo
     steps:
       - checkout
   # Download and cache dependencies
@@ -47,22 +47,24 @@ jobs:
               . venv/bin/activate
               make lint 
 
-    build:
-      executor: docker
+    build-docker-image:
+      docker:
+        - image: circleci/node:13.8.0
       steps:
         - checkout
         - run:
-          name: Build docker image
+          name: Build Docker Image
           command: |
             docker build -t capstone .
             docker image ls
 
-    upload-image:
-      executor: docker
+    push-docker-image:
+      docker:
+        - image: circleci/node:13.8.0
       steps:
         - checkout
         - run:
-          name: docker push
+          name: Push Docker Image
           command: |
             dockerpath=oketcbb/capstone
             docker login --username=oketcbb --email=bethoketch@gmail.co.uk
@@ -91,11 +93,10 @@ jobs:
 workflows:
   deployment:
     jobs:
-      - lint-app
-      - build:
-          requires: [lint-app]
+      - run-lint
+      - build-docker-image
       - upload-image:
           requires: [build]
       # - deploy-kubernetes:
       #     requires:
-      #       - "upload-image"
+      #       - [upload-image]
