@@ -95,7 +95,7 @@ workflows:
       - run-lint
       - build-docker-image
       - push-docker-image:
-          requires: [build]
+          requires: [build-docker-image]
       # - deploy-kubernetes:
       #     requires:
       #       - [upload-image]
