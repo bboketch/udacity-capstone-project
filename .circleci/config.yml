@@ -2,8 +2,8 @@ version: 2.1
 
 orbs:
   docker: circleci/docker@4.3.1
-  kubernetes: circleci/kubernetes@0.4.0
-  aws-eks: circleci/aws-eks@1.21
+  kubernetes: circleci/kubernetes@1.0
+  aws-eks: circleci/aws-eks@2.0
 
 # executors:
 #   python:
@@ -39,38 +39,37 @@ jobs:
           paths:
             - ./.capstone
           key: v1-dependencies-{{ checksum "requirements.txt" }}
-
       # run lint!
       - run:
-          name: run lint
+          name: Run lint
           command: |
               . venv/bin/activate
               make lint 
 
-    build-docker-image:
-      docker:
-        - image: circleci/node:13.8.0
-      steps:
-        - checkout
-        - run:
-          name: Build Docker Image
-          command: |
-            docker build -t capstone .
-            docker image ls
+  build-docker-image:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+        name: Build Docker Image
+        command: |
+          docker build -t capstone .
+          docker image ls
 
-    push-docker-image:
-      docker:
-        - image: circleci/node:13.8.0
-      steps:
-        - checkout
-        - run:
-          name: Push Docker Image
-          command: |
-            dockerpath=oketcbb/capstone
-            docker login --username=oketcbb --email=bethoketch@gmail.co.uk
-            docker tag capstone $dockerpath
-            echo "Docker ID and Image: $dockerpath"
-            docker push $dockerpath
+  push-docker-image:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run:
+        name: Push Docker Image
+        command: |
+          dockerpath=oketcbb/capstone
+          docker login --username=oketcbb --email=bethoketch@gmail.co.uk
+          docker tag capstone $dockerpath
+          echo "Docker ID and Image: $dockerpath"
+          docker push $dockerpath
 
     # deploy-kubernetes:
     #   executor: aws-eks/python3
