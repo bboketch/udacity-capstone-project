@@ -43,36 +43,42 @@ jobs:
               . venv/bin/activate
               make lint 
 
-  build-docker-image:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: 19.03.13
-      - run:
-          name: Build Docker Image
-          command: |
-              docker build -t capstone .
-              docker image ls
+  # build-docker-image:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - checkout
+  #     - setup_remote_docker:
+  #         version: 19.03.13
+  #     - run:
+  #         name: Build Docker Image
+  #         command: |
+  #             docker build -t capstone .
+  #             docker image ls
 
   push-docker-image:
     docker:
       - image: circleci/node:13.8.0
         auth:
-          username: mydockerhub-user
+          username: oketcbb
           password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - setup_remote_docker:
           version: 19.03.13
+          docker_layer_caching: true
       - run:
           name: Push Docker Image
           command: |
-              docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-              docker tag capstone oketcbb/capstone
-              echo "Docker ID and Image: oketcbb/capstone"
-              docker push oketcbb/capstone
+              TAG=0.1.$CIRCLE_BUILD_NUM
+              docker build -t oketcbb/capstone:$TAG .
+              echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+              docker push oketcbb/capstone:$TAG
+
+          # docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          # docker tag capstone oketcbb/capstone
+          # echo "Docker ID and Image: oketcbb/capstone"
+          # docker push oketcbb/capstone
 
     # deploy-kubernetes:
     #   executor: aws-eks/python3
@@ -96,9 +102,9 @@ workflows:
   deployment:
     jobs:
       - run-lint
-      - build-docker-image
-      - push-docker-image:
-          requires: [build-docker-image]
+      # - build-docker-image
+      - push-docker-image
+          # requires: [build-docker-image]
       # - deploy-kubernetes:
       #     requires:
       #       - [upload-image]
