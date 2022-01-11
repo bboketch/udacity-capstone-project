@@ -58,18 +58,17 @@ jobs:
 
   push-docker-image:
     machine: true
-    docker:
-      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
           name: Push Docker Image
           command: |
-              docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PWD}
+              echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+              docker run -d --name db oketcbb/proprietary-db:1.2.3
               docker build -t oketcbb/capstone:${CIRCLE_WORKFLOW_ID:0:7} .
               docker push oketcbb/capstone:${CIRCLE_WORKFLOW_ID:0:7}
-              docker tag oketcbb/capstone:${CIRCLE_WORKFLOW_ID:0:7} oketcbb/capstone:latest
-              docker push oketcbb/capstone:latest
+            # docker tag oketcbb/capstone:${CIRCLE_WORKFLOW_ID:0:7} oketcbb/capstone
+            # docker push oketcbb/capstone
 
           # docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           # docker tag capstone oketcbb/capstone
