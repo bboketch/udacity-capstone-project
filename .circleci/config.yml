@@ -53,8 +53,8 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-              export TAG=0e5574283393
-              docker build -t oketcbb/capstone:$TAG .
+              export tag=0e5574283393
+              docker build -t oketcbb/capstone:$tag .
               docker image ls
 
   push-docker-image:
@@ -70,8 +70,10 @@ jobs:
           command: |
               echo "logging into Docker Hub"
               docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD 
+              echo "Tag image"
+              docker tag capstone:$tag oketcbb/capstone:$tag
               echo "Pushing images to Docker Hub"
-              docker push oketcbb/capstone:$TAG
+              docker push oketcbb/capstone:$tag
 
             # docker tag oketcbb/capstone:${CIRCLE_WORKFLOW_ID:0:7} oketcbb/capstone
             # docker push oketcbb/capstone
