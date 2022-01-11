@@ -101,7 +101,7 @@ workflows:
     jobs:
       - run-lint
       - build-docker-image
-      - push-docker-image
+      - push-docker-image:
           requires: [build-docker-image]
       # - deploy-kubernetes:
       #     requires:
