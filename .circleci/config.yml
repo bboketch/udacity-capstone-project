@@ -58,7 +58,7 @@ jobs:
 
   push-docker-image:
     docker:
-      - image: python:3.10.0-base
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       # - setup_remote_docker:
