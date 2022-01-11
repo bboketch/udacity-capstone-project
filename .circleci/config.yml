@@ -54,7 +54,7 @@ jobs:
           name: Build Docker Image
           command: |
               export tag=0e5574283393
-              docker build -t oketcbb/capstone:$tag .
+              docker build -t capstone:$tag .
               docker image ls
 
   push-docker-image:
