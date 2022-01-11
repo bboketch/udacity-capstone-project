@@ -58,7 +58,7 @@ jobs:
 
   push-docker-image:
     machine: true
-    working_directory: ~/
+    working_directory: ~/repo
     steps:
       - checkout
       - run:
