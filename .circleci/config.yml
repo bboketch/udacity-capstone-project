@@ -57,6 +57,8 @@ jobs:
   #             docker image ls
 
   push-docker-image:
+    docker:
+      - image: circleci/node:13.8.0
     machine: true
     steps:
       - checkout
