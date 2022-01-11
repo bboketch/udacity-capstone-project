@@ -53,6 +53,7 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
+              docker system prune
               docker build -t capstone-project:8654tag .
               docker image ls
 
