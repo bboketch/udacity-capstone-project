@@ -43,18 +43,19 @@ jobs:
               . venv/bin/activate
               make lint 
 
-  # build-docker-image:
-  #   docker:
-  #     - image: circleci/node:13.8.0
-  #   steps:
-  #     - checkout
-  #     - setup_remote_docker:
-  #         version: 19.03.13
-  #     - run:
-  #         name: Build Docker Image
-  #         command: |
-  #             docker build -t capstone .
-  #             docker image ls
+  build-docker-image:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+      - run:
+          name: Build Docker Image
+          command: |
+              export TAG=0.1.$CIRCLE_SHA1
+              docker build -t oketcbb/capstone:$TAG .
+              docker image ls
 
   push-docker-image:
     docker:
@@ -67,8 +68,6 @@ jobs:
       - run:
           name: Push Docker Image
           command: |
-              TAG=0.1.$CIRCLE_SHA1
-              docker build -t oketcbb/capstone:$TAG .
               echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
               sudo docker push oketcbb/capstone:$TAG
             # docker tag oketcbb/capstone:${CIRCLE_WORKFLOW_ID:0:7} oketcbb/capstone
@@ -101,9 +100,9 @@ workflows:
   deployment:
     jobs:
       - run-lint
-      # - build-docker-image
+      - build-docker-image
       - push-docker-image
-          # requires: [build-docker-image]
+          requires: [build-docker-image]
       # - deploy-kubernetes:
       #     requires:
       #       - [upload-image]
