@@ -68,7 +68,7 @@ jobs:
       - run:
           name: Push Docker Image
           command: |
-              echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+              sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD 
               sudo docker push oketcbb/capstone:$TAG
             # docker tag oketcbb/capstone:${CIRCLE_WORKFLOW_ID:0:7} oketcbb/capstone
             # docker push oketcbb/capstone
