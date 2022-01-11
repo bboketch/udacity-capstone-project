@@ -71,7 +71,7 @@ jobs:
               echo "logging into Docker Hub"
               docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD 
               echo "Tag image"
-              docker tag 8654tag myregistryhost:5000/oketcbb/capstone-project
+              docker tag capstone-project:8654tag oketcbb/capstone-project.8654tag
               echo "Pushing images to Docker Hub"
               docker push oketcbb/capstone-project:8654tag
 
