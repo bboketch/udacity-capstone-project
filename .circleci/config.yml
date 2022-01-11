@@ -68,8 +68,11 @@ jobs:
       - run:
           name: Push Docker Image
           command: |
-              sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD 
+              echo "logging into Docker Hub"
+              sudo docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD 
+              echo "Pushing images to Docker Hub"
               sudo docker push oketcbb/capstone:$TAG
+              
             # docker tag oketcbb/capstone:${CIRCLE_WORKFLOW_ID:0:7} oketcbb/capstone
             # docker push oketcbb/capstone
 
