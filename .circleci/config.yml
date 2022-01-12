@@ -116,12 +116,10 @@ workflows:
       - build-docker-image
       - create-cluster:
           cluster-name: capstone-project
-          requires:
-            - [build-docker-image]
+          requires: [build-docker-image]
       # - test-cluster:
       #     cluster-name: capstone-project
-      #     requires:
-      #       - [create-cluster]
+      #     requires: [create-cluster]
       # - aws-eks/update-container-image:
       #     cluster-name: eks-demo-deployment
       #     container-image-updates: 'nginx=nginx:1.9.1'
