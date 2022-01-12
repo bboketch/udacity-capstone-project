@@ -130,6 +130,4 @@ workflows:
       #     requires:
       #       - create-deployment
       #     resource-name: deployment/nginx-deployment
-      # - deploy-kubernetes:
-      #     requires:
-      #       - [upload-image]
+  
