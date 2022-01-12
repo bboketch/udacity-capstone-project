@@ -56,24 +56,30 @@ jobs:
               docker system prune
               docker build -t capstone-project:8654tag .
               docker image ls
-
-  push-docker-image:
-    docker:
-      - image: circleci/node:13.8.0
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: 19.03.13
-          docker_layer_caching: true
-      - run:
-          name: Push Docker Image
-          command: |
               echo "logging into Docker Hub"
               docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD 
               echo "Tag image"
               docker tag capstone-project:8654tag oketcbb/capstone-project.8654tag
               echo "Pushing images to Docker Hub"
               docker push oketcbb/capstone-project:8654tag
+
+  # push-docker-image:
+  #   docker:
+  #     - image: circleci/node:13.8.0
+  #   steps:
+  #     - checkout
+  #     - setup_remote_docker:
+  #         version: 19.03.13
+  #         docker_layer_caching: true
+  #     - run:
+  #         name: Push Docker Image
+  #         command: |
+  #             echo "logging into Docker Hub"
+  #             docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD 
+  #             echo "Tag image"
+  #             docker tag capstone-project:8654tag oketcbb/capstone-project.8654tag
+  #             echo "Pushing images to Docker Hub"
+  #             docker push oketcbb/capstone-project:8654tag
 
             # docker tag oketcbb/capstone:${CIRCLE_WORKFLOW_ID:0:7} oketcbb/capstone
             # docker push oketcbb/capstone
@@ -106,8 +112,8 @@ workflows:
     jobs:
       - run-lint
       - build-docker-image
-      - push-docker-image:
-          requires: [build-docker-image]
+      # - push-docker-image:
+      #     requires: [build-docker-image]
       # - deploy-kubernetes:
       #     requires:
       #       - [upload-image]
