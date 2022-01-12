@@ -90,6 +90,7 @@ jobs:
   #         command: |
   #           kubectl get svc
   #           kubectl get nodes
+  #           kubectl get pods
   #           kubectl get deployment
 
     # deploy-kubernetes:
