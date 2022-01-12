@@ -61,7 +61,7 @@ jobs:
               echo "Tag image"
               docker tag capstone-project:8654tag oketcbb/capstone-project.8654tag
               echo "Pushing images to Docker Hub"
-              docker push oketcbb/capstone-project:8654tag
+              docker push oketcbb/capstone-project.8654tag
 
   # push-docker-image:
   #   docker:
