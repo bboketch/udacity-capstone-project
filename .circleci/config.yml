@@ -57,12 +57,18 @@ jobs:
         description: |
           udacitycapstone
         type: string
+      aws-region:
+        description: |
+          AWS region
+        type: string
+        default: "us-east-1"
     steps:
       - checkout
       - kubernetes/install
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: << parameters.cluster-name >>
           install-kubectl: true
+          aws-region: << parameters.aws-region >>
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: eks_deployment.yml
