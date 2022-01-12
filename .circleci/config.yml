@@ -5,6 +5,11 @@ orbs:
   kubernetes: circleci/kubernetes@1.0
   aws-eks: circleci/aws-eks@2.0
 
+executors:
+ aws:
+    docker:
+      - image: amazon/aws-cli
+      
 jobs:
   run-lint:
     docker:
