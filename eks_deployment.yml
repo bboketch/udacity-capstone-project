@@ -2,14 +2,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: capstone
+  name: capstone-project
   labels:
-    app: capstone
+    app: capstone-project
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: capstone
+      app: capstone-project
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -18,14 +18,14 @@ spec:
   template:
     metadata:
       labels:
-        app: capstone
+        app: capstone-project
     spec:
       volumes:
       - name: uploads
         emptyDir: {}
       containers:
-      - name: capstone
-        image: oketcbb/capstone
+      - name: capstone-project
+        image: oketcbb/capstone-project.8654tag
         ports:
         - name: http
           containerPort: 8080
