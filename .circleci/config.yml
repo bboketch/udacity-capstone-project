@@ -109,7 +109,7 @@ jobs:
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: eks_deployment.yml
-          resource-name: deployment/capstone-project
+          resource-name: deployment/eksctl-capstone-project-cluster
   
   # test-cluster:
   #   executor: aws-eks/python3
@@ -160,7 +160,7 @@ workflows:
       #     cluster-name: capstone-project
       #     requires: [build-docker-image]
       - deploy-cluster:
-          cluster-name: capstone-project
+          cluster-name: eksctl-capstone-project-cluster
           # requires: [create-cluster]
       # - test-cluster:
       #     cluster-name: capstone-project
