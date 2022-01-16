@@ -154,14 +154,14 @@ orbs:
 workflows:
   deployment:
     jobs:
-      - run-lint
-      - build-docker-image
+      # - run-lint
+      # - build-docker-image
       # - create-cluster:
       #     cluster-name: capstone-project
       #     requires: [build-docker-image]
       - deploy-cluster:
           cluster-name: capstone-project
-          requires: [create-cluster]
+          # requires: [create-cluster]
       # - test-cluster:
       #     cluster-name: capstone-project
       #     requires: [create-cluster]
